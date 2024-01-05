@@ -1,2 +1,2 @@
-# breeze
-Project for the Mobile Information Systems Course
+# Breeze - Weather App
+### Kristina Koneva - 201513
