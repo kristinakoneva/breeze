@@ -12,16 +12,16 @@ abstract class WeatherApiService {
 
   @GET("weather")
   Future<HttpResponse<DailyForecastResponse>> getDailyForecastByCoordinates({
-    @Query("lat") String latitude,
-    @Query("lon") String longitude,
-    @Query("units") String unitSystem,
+    @Query("lat") required String latitude,
+    @Query("lon") required String longitude,
+    @Query("units") required String unitSystem,
     @Query("appid") String apiKey = apiKey,
   });
 
   @GET("weather")
   Future<HttpResponse<DailyForecastResponse>> getDailyForecastByCityName({
-    @Query("q") String cityName,
-    @Query("units") String unitSystem,
+    @Query("q") required String cityName,
+    @Query("units") required String unitSystem,
     @Query("appid") String apiKey = apiKey,
   });
 }
