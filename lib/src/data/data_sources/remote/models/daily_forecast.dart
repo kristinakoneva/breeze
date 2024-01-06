@@ -16,8 +16,8 @@ class DailyForecastResponse {
   factory DailyForecastResponse.fromJson(Map<String, dynamic> map) {
     return DailyForecastResponse(
       coordinates: Coordinates(
-        latitude: map['coord']['lat'] ?? 0.0,
-        longitude: map['coord']['lon'] ?? 0.0,
+        latitude: (map['coord']['lat'] as num).toDouble(),
+        longitude: (map['coord']['lon'] as num).toDouble(),
       ),
       weatherDescriptions: (map['weather'] as List<dynamic>?)
               ?.map((item) => WeatherDescription(
@@ -27,13 +27,13 @@ class DailyForecastResponse {
               ?.toList() ??
           [],
       weather: Weather(
-        currentTemperature: map['main']['temp'] ?? 0.0,
-        minTemperature: map['main']['temp_min'] ?? 0.0,
-        maxTemperature: map['main']['temp_max'] ?? 0.0,
+        currentTemperature: (map['main']['temp'] as num).toDouble(),
+        minTemperature: (map['main']['temp_min'] as num).toDouble(),
+        maxTemperature: (map['main']['temp_max'] as num).toDouble(),
         humidity: map['main']['humidity'] ?? 0,
         pressure: map['main']['pressure'] ?? 0,
       ),
-      wind: Wind(speed: map['wind']['speed'] ?? 0.0),
+      wind: Wind(speed: (map['wind']['speed'] as num).toDouble()),
       cityName: map['name'] ?? "",
     );
   }
