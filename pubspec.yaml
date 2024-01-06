@@ -29,13 +29,16 @@ dependencies:
   # Hooks
   flutter_hooks: ^0.18.3
 
+  # Dio
+  dio: ^4.0.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
-  retrofit_generator: 3.0.1+1
-  build_runner: 2.1.2
+  build_runner: ^2.4.6
+  retrofit_generator: ^4.2.0
 
 flutter:
   uses-material-design: true
