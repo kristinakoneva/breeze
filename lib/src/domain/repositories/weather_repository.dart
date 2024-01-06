@@ -1,5 +1,5 @@
-import '../../../core/resources/data_state.dart';
-import '../models/daily_forecast.dart';
+import 'package:breeze/core/resources/data_state.dart';
+import 'package:breeze/src/domain/models/daily_forecast.dart';
 
 abstract class WeatherRepository {
   Future<DataState<DailyForecast>> getDailyForecastByCoordinates(

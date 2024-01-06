@@ -1,5 +1,5 @@
+import 'package:breeze/src/data/data_sources/remote/models/daily_forecast.dart';
 import 'package:equatable/equatable.dart';
-import '../../data/data_sources/remote/models/daily_forecast.dart';
 
 class DailyForecast extends Equatable {
   String cityName;
