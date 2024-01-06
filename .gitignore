@@ -43,4 +43,4 @@ app.*.map.json
 /android/app/release
 
 
-/lib/src/data/data_sources/remote/api_key.dart
+**/remote/api_key.dart
