@@ -26,6 +26,9 @@ ThemeData theme() {
         fontWeight: FontWeight.w500,
       ),
     ),
+    iconTheme: const IconThemeData(
+      color: Colors.white,
+    ),
     appBarTheme: appBarTheme(),
     useMaterial3: true,
   );
