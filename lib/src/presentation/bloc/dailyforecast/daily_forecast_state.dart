@@ -16,8 +16,8 @@ class DailyForecastLoading extends DailyForecastState {
   const DailyForecastLoading();
 }
 
-class DailyForecastDone extends DailyForecastState {
-  const DailyForecastDone(DailyForecast dailyForecast)
+class DailyForecastSuccess extends DailyForecastState {
+  const DailyForecastSuccess(DailyForecast dailyForecast)
       : super(dailyForecast: dailyForecast);
 }
 

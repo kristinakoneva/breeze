@@ -2,19 +2,19 @@ import 'package:breeze/src/data/data_sources/remote/models/daily_forecast.dart';
 import 'package:equatable/equatable.dart';
 
 class DailyForecast extends Equatable {
-  String cityName;
-  double? latitude;
-  double? longitude;
-  double? currentTemperature;
-  double? minTemperature;
-  double? maxTemperature;
-  int? airPressure;
-  int? humidity;
-  double? windSpeed;
-  String? weatherDescription;
-  String? weatherIcon;
+  final String cityName;
+  final double? latitude;
+  final double? longitude;
+  final double? currentTemperature;
+  final double? minTemperature;
+  final double? maxTemperature;
+  final int? airPressure;
+  final int? humidity;
+  final double? windSpeed;
+  final String? weatherDescription;
+  final String? weatherIcon;
 
-  DailyForecast({
+  const DailyForecast({
     required this.cityName,
     this.latitude,
     this.longitude,

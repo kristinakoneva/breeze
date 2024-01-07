@@ -5,6 +5,9 @@ import 'package:breeze/src/domain/usecases/get_daily_forecast_by_city_name.dart'
 import 'package:breeze/src/presentation/bloc/dailyforecast/daily_forecast_bloc.dart';
 import 'package:breeze/src/presentation/bloc/dailyforecast/daily_forecast_event.dart';
 import 'package:breeze/src/presentation/bloc/dailyforecast/daily_forecast_state.dart';
+import 'package:breeze/src/presentation/bloc/multiple_days_forecast/multiple_days_forecast_bloc.dart';
+import 'package:breeze/src/presentation/bloc/multiple_days_forecast/multiple_days_forecast_event.dart';
+import 'package:breeze/src/presentation/bloc/multiple_days_forecast/multiple_days_forecast_state.dart';
 import 'package:breeze/src/presentation/widgets/current_weather.dart';
 import 'package:breeze/src/presentation/widgets/weather_info.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +39,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
             ),
           );
-        } else if (state is DailyForecastDone) {
+        } else if (state is DailyForecastSuccess) {
           return SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: SafeArea(
@@ -108,6 +111,7 @@ class _HomePageState extends State<HomePage> {
                       children:
                           _getListOfWeatherInfoWidgets(state.dailyForecast!),
                     ),
+                    _testMultipleDaysForecast(),
                   ],
                 ),
               ));
@@ -144,5 +148,27 @@ class _HomePageState extends State<HomePage> {
         value: "${dailyForecast.airPressure} hPa",
       ),
     ];
+  }
+
+  _testMultipleDaysForecast() {
+    return BlocBuilder<MultipleDaysForecastBloc, MultipleDaysForecastState>(
+        builder: (context, state) {
+      if (state is MultipleDaysForecastLoading) {
+        return TextButton(
+            onPressed: () {
+              BlocProvider.of<MultipleDaysForecastBloc>(context).add(
+                  GetMultipleDaysForecastByCityName(
+                      ForecastByCityNameParams(cityName: "London")));
+            },
+            child: const Text("Loading + trigger..."));
+      } else if (state is MultipleDaysForecastSuccess) {
+        print("CHECK: ${state.multipleDaysForecast}");
+        return const Text("Success");
+      } else if (state is MultipleDaysForecastError) {
+        return const Text("Error");
+      } else {
+        return const Text("Something went wrong");
+      }
+    });
   }
 }

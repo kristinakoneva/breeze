@@ -1,4 +1,5 @@
 import 'package:breeze/core/constants/constants.dart';
+import 'package:breeze/src/data/data_sources/remote/models/multiple_days_forecast.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'api_key.dart';
@@ -20,6 +21,14 @@ abstract class WeatherApiService {
 
   @GET("weather")
   Future<HttpResponse<DailyForecastResponse>> getDailyForecastByCityName({
+    @Query("q") required String cityName,
+    @Query("units") required String unitSystem,
+    @Query("appid") String apiKey = apiKey,
+  });
+
+  @GET("forecast")
+  Future<HttpResponse<MultipleDaysForecastResponse>>
+      getMultipleDaysForecastByCityName({
     @Query("q") required String cityName,
     @Query("units") required String unitSystem,
     @Query("appid") String apiKey = apiKey,

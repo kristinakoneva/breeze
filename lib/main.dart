@@ -1,5 +1,6 @@
 import 'package:breeze/config/theme/theme.dart';
 import 'package:breeze/src/presentation/bloc/dailyforecast/daily_forecast_bloc.dart';
+import 'package:breeze/src/presentation/bloc/multiple_days_forecast/multiple_days_forecast_bloc.dart';
 import 'package:breeze/src/presentation/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +23,9 @@ void main() async {
         BlocProvider<DailyForecastBloc>(
           create: (BuildContext context) => serviceLocator(),
         ),
+        BlocProvider<MultipleDaysForecastBloc>(
+          create: (BuildContext context) => serviceLocator(),
+        ),
       ],
       child: const BreezeApp(),
     ),
@@ -34,9 +38,9 @@ class BreezeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Breeze',
-        theme: theme(),
-        home: const HomePage(),
+      title: 'Breeze',
+      theme: theme(),
+      home: const HomePage(),
     );
   }
 }

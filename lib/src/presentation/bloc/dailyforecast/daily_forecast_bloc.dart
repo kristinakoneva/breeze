@@ -10,9 +10,10 @@ class DailyForecastBloc extends Bloc<DailyForecastEvent, DailyForecastState> {
       _getDailyForecastByCoordinatesUseCase;
   final GetDailyForecastByCityNameUseCase _getDailyForecastByCityNameUseCase;
 
-  DailyForecastBloc(this._getDailyForecastByCoordinatesUseCase,
-      this._getDailyForecastByCityNameUseCase)
-      : super(const DailyForecastLoading()) {
+  DailyForecastBloc(
+    this._getDailyForecastByCoordinatesUseCase,
+    this._getDailyForecastByCityNameUseCase,
+  ) : super(const DailyForecastLoading()) {
     on<GetDailyForecastByCoordinates>(onGetDailyForecastByCoordinates);
     on<GetDailyForecastByCityName>(onGetDailyForecastByCityName);
   }
@@ -24,7 +25,7 @@ class DailyForecastBloc extends Bloc<DailyForecastEvent, DailyForecastState> {
         params: event.coordinatesParams!);
 
     if (dataState is DataSuccess && dataState.data != null) {
-      emit(DailyForecastDone(dataState.data!));
+      emit(DailyForecastSuccess(dataState.data!));
     }
 
     if (dataState is DataFailed) {
@@ -39,7 +40,7 @@ class DailyForecastBloc extends Bloc<DailyForecastEvent, DailyForecastState> {
         await _getDailyForecastByCityNameUseCase(params: event.cityNameParams!);
 
     if (dataState is DataSuccess && dataState.data != null) {
-      emit(DailyForecastDone(dataState.data!));
+      emit(DailyForecastSuccess(dataState.data!));
     }
 
     if (dataState is DataFailed) {
