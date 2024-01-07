@@ -19,6 +19,7 @@ class DailyForecastBloc extends Bloc<DailyForecastEvent, DailyForecastState> {
 
   void onGetDailyForecastByCoordinates(GetDailyForecastByCoordinates event,
       Emitter<DailyForecastState> emit) async {
+    emit(const DailyForecastLoading());
     final dataState = await _getDailyForecastByCoordinatesUseCase(
         params: event.coordinatesParams!);
 
@@ -33,6 +34,7 @@ class DailyForecastBloc extends Bloc<DailyForecastEvent, DailyForecastState> {
 
   void onGetDailyForecastByCityName(GetDailyForecastByCityName event,
       Emitter<DailyForecastState> emit) async {
+    emit(const DailyForecastLoading());
     final dataState =
         await _getDailyForecastByCityNameUseCase(params: event.cityNameParams!);
 

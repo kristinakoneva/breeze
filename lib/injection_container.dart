@@ -4,7 +4,6 @@ import 'package:breeze/src/domain/repositories/weather_repository_impl.dart';
 import 'package:breeze/src/domain/usecases/get_daily_forecast_by_city_name.dart';
 import 'package:breeze/src/domain/usecases/get_daily_forecast_by_coordinates.dart';
 import 'package:breeze/src/presentation/bloc/dailyforecast/daily_forecast_bloc.dart';
-import 'package:breeze/src/presentation/bloc/dailyforecast/daily_forecast_event.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 
