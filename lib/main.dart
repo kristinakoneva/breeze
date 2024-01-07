@@ -1,3 +1,4 @@
+import 'package:breeze/config/theme/theme.dart';
 import 'package:breeze/src/presentation/bloc/dailyforecast/daily_forecast_bloc.dart';
 import 'package:breeze/src/presentation/pages/home.dart';
 import 'package:flutter/material.dart';
@@ -15,24 +16,27 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<DailyForecastBloc>(
+          create: (BuildContext context) => serviceLocator(),
+        ),
+      ],
+      child: const BreezeApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class BreezeApp extends StatelessWidget {
+  const BreezeApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<DailyForecastBloc>(
-      create: (context) => serviceLocator(),
-      child: MaterialApp(
+    return MaterialApp(
         title: 'Breeze',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0x000B5A56)),
-          useMaterial3: true,
-        ),
+        theme: theme(),
         home: const HomePage(),
-      ),
     );
   }
 }
