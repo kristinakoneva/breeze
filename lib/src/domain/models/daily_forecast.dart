@@ -12,6 +12,7 @@ class DailyForecast extends Equatable {
   int? humidity;
   double? windSpeed;
   String? weatherDescription;
+  String? weatherIcon;
 
   DailyForecast({
     required this.cityName,
@@ -24,10 +25,18 @@ class DailyForecast extends Equatable {
     this.humidity,
     this.windSpeed,
     this.weatherDescription,
+    this.weatherIcon,
   });
 
   factory DailyForecast.fromDailyForecastResponse(
       DailyForecastResponse response) {
+    String icon = response.weatherDescriptions.isNotEmpty
+        ? response.weatherDescriptions[0].icon
+        : "";
+    if (icon.contains("n")) {
+      icon = icon.replaceAll("n", "d");
+    }
+    icon = "http://openweathermap.org/img/wn/$icon@2x.png";
     return DailyForecast(
       cityName: response.cityName,
       latitude: response.coordinates.latitude,
@@ -41,6 +50,7 @@ class DailyForecast extends Equatable {
       weatherDescription: response.weatherDescriptions.isNotEmpty
           ? response.weatherDescriptions[0].description
           : "",
+      weatherIcon: icon,
     );
   }
 
@@ -56,5 +66,6 @@ class DailyForecast extends Equatable {
         humidity,
         windSpeed,
         weatherDescription,
+        weatherIcon,
       ];
 }

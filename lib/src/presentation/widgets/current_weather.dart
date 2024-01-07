@@ -1,0 +1,66 @@
+import 'package:breeze/src/domain/models/daily_forecast.dart';
+import 'package:flutter/material.dart';
+
+class CurrentWeatherWidget extends StatelessWidget {
+  final DailyForecast dailyForecast;
+
+  const CurrentWeatherWidget({Key? key, required this.dailyForecast})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.transparent,
+      child: Column(
+        children: [
+          Flex(
+            mainAxisAlignment: MainAxisAlignment.center,
+            direction: Axis.horizontal,
+            children: [
+              const Icon(Icons.location_on),
+              Text(dailyForecast.cityName,
+                  style: const TextStyle(fontSize: 30)),
+            ],
+          ),
+          Container(
+            //color: Colors.white,
+            padding: const EdgeInsets.all(26),
+            margin: const EdgeInsets.symmetric(horizontal: 42),
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              color: Colors.white,
+            ),
+            child: Flex(
+              direction: Axis.vertical,
+              children: [
+                Image.network(
+                  dailyForecast.weatherIcon ?? "",
+                ),
+                Text(
+                  dailyForecast.weatherDescription ?? "",
+                  style: const TextStyle(color: Colors.black, fontSize: 28),
+                ),
+                Flex(
+                  mainAxisSize: MainAxisSize.min,
+                  direction: Axis.horizontal,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${dailyForecast.currentTemperature}',
+                      style: const TextStyle(color: Colors.black, fontSize: 38),
+                    ),
+                    const Text(
+                      '°C',
+                      style: TextStyle(color: Colors.black, fontSize: 32),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

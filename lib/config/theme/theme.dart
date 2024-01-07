@@ -11,6 +11,7 @@ ThemeData theme() {
     scaffoldBackgroundColor: colorSurface,
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
+        padding: const EdgeInsets.all(16),
         backgroundColor: Colors.white,
         textStyle: const TextStyle(
           fontSize: 16,
