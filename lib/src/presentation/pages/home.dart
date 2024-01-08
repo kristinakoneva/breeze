@@ -37,81 +37,79 @@ class _HomePageState extends State<HomePage> {
           );
         } else if (state is DailyForecastSuccess) {
           return SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    Flex(
-                      direction: Axis.horizontal,
-                      children: [
-                        Expanded(
-                          child: SearchBar(
-                            constraints: const BoxConstraints(
-                              minHeight: 30,
-                            ),
-                            shape: MaterialStateProperty.all(
-                                const ContinuousRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
-                            )),
-                            leading: const Icon(
-                              Icons.search,
-                              color: colorSurface,
-                            ),
-                            hintText: 'Search',
-                            onSubmitted: (String value) {
-                              if (value.isNotEmpty) {
-                                dailyForecastBloc.add(
-                                    GetDailyForecastByCityName(
-                                        ForecastByCityNameParams(
-                                            cityName: value)));
-                              }
-                            },
+            padding: const EdgeInsets.all(16),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                      Expanded(
+                        child: SearchBar(
+                          constraints: const BoxConstraints(
+                            minHeight: 30,
                           ),
-                        ),
-                        IconButton(
-                          iconSize: 30,
-                          onPressed: () {
-                            // TODO: Implement settings
+                          shape: MaterialStateProperty.all(
+                              const ContinuousRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                          )),
+                          leading: const Icon(
+                            Icons.search,
+                            color: colorSurface,
+                          ),
+                          hintText: 'Search',
+                          onSubmitted: (String value) {
+                            if (value.isNotEmpty) {
+                              dailyForecastBloc.add(GetDailyForecastByCityName(
+                                  ForecastByCityNameParams(cityName: value)));
+                            }
                           },
-                          icon: const Icon(Icons.menu),
-                        )
+                        ),
+                      ),
+                      IconButton(
+                        iconSize: 30,
+                        onPressed: () {
+                          _onSettingsButtonClicked(context);
+                        },
+                        icon: const Icon(Icons.menu),
+                      )
+                    ],
+                  ),
+                  CurrentWeatherWidget(
+                    dailyForecast: state.dailyForecast!,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      _onNext3DaysButtonClicked(
+                          context, state.dailyForecast!.cityName);
+                    },
+                    child: const Flex(
+                      direction: Axis.horizontal,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("NEXT 3 DAYS"),
+                        Icon(Icons.arrow_forward)
                       ],
                     ),
-                    CurrentWeatherWidget(
-                      dailyForecast: state.dailyForecast!,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        _onNext3DaysButtonClicked(
-                            context, state.dailyForecast!.cityName);
-                      },
-                      child: const Flex(
-                        direction: Axis.horizontal,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("NEXT 3 DAYS"),
-                          Icon(Icons.arrow_forward)
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    GridView.count(
-                      crossAxisCount: 2,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      childAspectRatio: 1.4,
-                      children:
-                          _getListOfWeatherInfoWidgets(state.dailyForecast!),
-                    ),
-                  ],
-                ),
-              ));
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  GridView.count(
+                    crossAxisCount: 2,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    childAspectRatio: 1.4,
+                    children:
+                        _getListOfWeatherInfoWidgets(state.dailyForecast!),
+                  ),
+                ],
+              ),
+            ),
+          );
         } else if (state is DailyForecastError) {
           return const Center(
             child: Text("Error"),
@@ -149,5 +147,9 @@ class _HomePageState extends State<HomePage> {
 
   void _onNext3DaysButtonClicked(BuildContext context, String cityName) {
     Navigator.pushNamed(context, '/MultipleDaysForecast', arguments: cityName);
+  }
+
+  void _onSettingsButtonClicked(BuildContext context) {
+    Navigator.pushNamed(context, '/Settings');
   }
 }

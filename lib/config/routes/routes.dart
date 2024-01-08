@@ -1,5 +1,6 @@
 import 'package:breeze/src/presentation/pages/home.dart';
 import 'package:breeze/src/presentation/pages/multiple_days_forecast.dart';
+import 'package:breeze/src/presentation/pages/settings.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -11,6 +12,9 @@ class AppRoutes {
       case '/MultipleDaysForecast':
         return _materialRoute(
             MultipleDaysForecastPage(cityName: settings.arguments as String));
+
+      case '/Settings':
+        return _materialRoute(const SettingsPage());
 
       default:
         return _materialRoute(const HomePage());
