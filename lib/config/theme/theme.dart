@@ -30,6 +30,19 @@ ThemeData theme() {
     iconTheme: const IconThemeData(
       color: Colors.white,
     ),
+    dialogTheme: const DialogTheme(
+      backgroundColor: Colors.white,
+      titleTextStyle: TextStyle(
+        color: colorPrimary,
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+      ),
+      contentTextStyle: TextStyle(
+        color: Colors.black,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
     appBarTheme: appBarTheme(),
     useMaterial3: true,
   );

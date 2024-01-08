@@ -1,6 +1,7 @@
 import 'package:breeze/config/theme/colors.dart';
 import 'package:breeze/src/domain/models/daily_forecast.dart';
 import 'package:breeze/src/domain/models/forecast_by_city_name_params.dart';
+import 'package:breeze/src/domain/models/forecast_by_coordinates_params.dart';
 import 'package:breeze/src/presentation/bloc/daily_forecast/daily_forecast_bloc.dart';
 import 'package:breeze/src/presentation/bloc/daily_forecast/daily_forecast_event.dart';
 import 'package:breeze/src/presentation/bloc/daily_forecast/daily_forecast_state.dart';
@@ -8,6 +9,7 @@ import 'package:breeze/src/presentation/widgets/current_weather.dart';
 import 'package:breeze/src/presentation/widgets/weather_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,8 +23,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     DailyForecastBloc dailyForecastBloc =
         BlocProvider.of<DailyForecastBloc>(context);
-    dailyForecastBloc.add(GetDailyForecastByCityName(
-        ForecastByCityNameParams(cityName: "London")));
+    _getCurrentPosition(dailyForecastBloc);
     return Scaffold(body: _buildBody(dailyForecastBloc));
   }
 
@@ -151,5 +152,106 @@ class _HomePageState extends State<HomePage> {
 
   void _onSettingsButtonClicked(BuildContext context) {
     Navigator.pushNamed(context, '/Settings');
+  }
+
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      _showAlertDialog('Location services are disabled.\n\n'
+          ' Please enable the services if you want to get the forecast for you current position.');
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        _showAlertDialog('Location permissions are denied.\n\n'
+            ' Please enable the location services if you want to get the forecast for you current position.');
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      _showLocationPermissionPermanentlyDeniedAlertDialog();
+      return false;
+    }
+    return true;
+  }
+
+  _getCurrentPosition(DailyForecastBloc dailyForecastBloc) async {
+    final hasPermission = await _handleLocationPermission();
+
+    if (!hasPermission) {
+      // Default location
+      dailyForecastBloc.add(GetDailyForecastByCityName(
+          ForecastByCityNameParams(cityName: "Skopje")));
+      return;
+    }
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      dailyForecastBloc.add(GetDailyForecastByCoordinates(
+          ForecastByCoordinatesParams(
+              latitude: position.latitude.toString(),
+              longitude: position.longitude.toString())));
+    }).catchError((e) {
+      // Default location
+      dailyForecastBloc.add(GetDailyForecastByCityName(
+          ForecastByCityNameParams(cityName: "Skopje")));
+      debugPrint(e);
+    });
+  }
+
+  _showAlertDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Breeze App"),
+        content: Text(message),
+        actions: [
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: colorPrimary,
+            ),
+            onPressed: () => Navigator.pop(context),
+            child: const Text("OK",
+                style: TextStyle(color: Colors.white, fontSize: 12)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _showLocationPermissionPermanentlyDeniedAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Breeze App"),
+        content: const Text("Location permissions are permanently denied.\n\n"
+            " Please enable the location services if you want to get the forecast for you current position."),
+        actions: [
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: colorPrimary,
+            ),
+            onPressed: () => Navigator.pop(context),
+            child: const Text("CANCEL",
+                style: TextStyle(color: Colors.white, fontSize: 12)),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: colorPrimary,
+            ),
+            onPressed: () => {
+              Navigator.pop(context),
+              Geolocator.openAppSettings(),
+            },
+            child: const Text("GO TO SETTINGS",
+                style: TextStyle(color: Colors.white, fontSize: 12)),
+          ),
+        ],
+      ),
+    );
   }
 }
