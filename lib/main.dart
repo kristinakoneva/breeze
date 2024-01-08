@@ -1,5 +1,6 @@
+import 'package:breeze/config/routes/routes.dart';
 import 'package:breeze/config/theme/theme.dart';
-import 'package:breeze/src/presentation/bloc/dailyforecast/daily_forecast_bloc.dart';
+import 'package:breeze/src/presentation/bloc/daily_forecast/daily_forecast_bloc.dart';
 import 'package:breeze/src/presentation/bloc/multiple_days_forecast/multiple_days_forecast_bloc.dart';
 import 'package:breeze/src/presentation/pages/home.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ class BreezeApp extends StatelessWidget {
     return MaterialApp(
       title: 'Breeze',
       theme: theme(),
+      onGenerateRoute: AppRoutes.onGenerateRoutes,
       home: const HomePage(),
     );
   }

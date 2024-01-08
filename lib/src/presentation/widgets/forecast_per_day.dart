@@ -1,0 +1,76 @@
+import 'package:breeze/config/theme/colors.dart';
+import 'package:breeze/src/domain/models/multiple_days_forecast.dart';
+import 'package:flutter/material.dart';
+
+class ForecastPerDayWidget extends StatelessWidget {
+  final ForecastPerDay forecast;
+  final String dayLabel;
+
+  const ForecastPerDayWidget(
+      {Key? key, required this.forecast, required this.dayLabel})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+        color: Colors.white,
+      ),
+      child: Flex(
+        direction: Axis.vertical,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            alignment: Alignment.topCenter,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              color: colorPrimary,
+            ),
+            child: Text(
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              dayLabel,
+              style: const TextStyle(color: Colors.white, fontSize: 12),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(12),
+            child: Flex(
+              direction: Axis.horizontal,
+              children: [
+                Image.network(
+                  forecast.weatherIcon ?? "",
+                  width: 70,
+                  height: 70,
+                ),
+                Container(
+                  width: 100,
+                  margin: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    forecast.weatherDescription ?? "",
+                    style: const TextStyle(color: Colors.black, fontSize: 18),
+                  ),
+                ),
+                const Spacer(),
+                Container(
+                  width: 100,
+                  margin: const EdgeInsets.only(right: 8),
+                  child: Text(
+                    '${forecast.minTemperature?.toStringAsFixed(2)}/${forecast.maxTemperature?.toStringAsFixed(2)}°C',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: const TextStyle(color: Colors.black, fontSize: 18),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

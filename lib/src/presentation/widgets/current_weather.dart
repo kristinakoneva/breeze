@@ -18,8 +18,16 @@ class CurrentWeatherWidget extends StatelessWidget {
             direction: Axis.horizontal,
             children: [
               const Icon(Icons.location_on),
-              Text(dailyForecast.cityName,
-                  style: const TextStyle(fontSize: 30)),
+              Container(
+                width: 200,
+                margin: const EdgeInsets.only(left: 8),
+                child: Text(
+                  dailyForecast.cityName,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: const TextStyle(fontSize: 30),
+                ),
+              ),
             ],
           ),
           Container(

@@ -28,6 +28,8 @@ class WeatherInfoWidget extends StatelessWidget {
               color: colorPrimary,
             ),
             child: Text(
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               label,
               style: const TextStyle(color: Colors.white, fontSize: 12),
             ),
@@ -35,6 +37,8 @@ class WeatherInfoWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             child: Text(
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               value,
               style: const TextStyle(color: Colors.black, fontSize: 16),
             ),

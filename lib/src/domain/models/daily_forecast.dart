@@ -33,15 +33,13 @@ class DailyForecast extends Equatable {
     String icon = response.weatherDescriptions.isNotEmpty
         ? response.weatherDescriptions[0].icon
         : "";
-    if (icon.contains("n")) {
-      icon = icon.replaceAll("n", "d");
-    }
     icon = "http://openweathermap.org/img/wn/$icon@2x.png";
     return DailyForecast(
       cityName: response.cityName,
       latitude: response.coordinates.latitude,
       longitude: response.coordinates.longitude,
       currentTemperature: response.weather.currentTemperature,
+      // round to two decimals
       minTemperature: response.weather.minTemperature,
       maxTemperature: response.weather.maxTemperature,
       airPressure: response.weather.pressure,
