@@ -1,5 +1,5 @@
 import 'package:breeze/core/resources/data_state.dart';
-import 'package:breeze/src/domain/usecases/get_multiple_days_forecast_by_city_name.dart';
+import 'package:breeze/src/domain/use_cases/get_multiple_days_forecast_by_city_name.dart';
 import 'package:breeze/src/presentation/bloc/multiple_days_forecast/multiple_days_forecast_event.dart';
 import 'package:breeze/src/presentation/bloc/multiple_days_forecast/multiple_days_forecast_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
