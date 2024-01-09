@@ -46,27 +46,23 @@ class ForecastPerDayWidget extends StatelessWidget {
                   width: 70,
                   height: 70,
                 ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 4),
-                    child: Text(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      forecast.weatherDescription ?? "",
-                      style: const TextStyle(color: Colors.black, fontSize: 18),
-                    ),
+                Container(
+                  margin: const EdgeInsets.only(left: 4),
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    forecast.weatherDescription ?? "",
+                    style: const TextStyle(color: Colors.black, fontSize: 18),
                   ),
                 ),
-                //const Spacer(),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 8),
-                    child: Text(
-                      '${forecast.minTemperature?.toStringAsFixed(1)}/${forecast.maxTemperature?.toStringAsFixed(1)}${_getTemperatureUnit()}',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: const TextStyle(color: Colors.black, fontSize: 16),
-                    ),
+                const Spacer(),
+                Container(
+                  margin: const EdgeInsets.only(right: 8),
+                  child: Text(
+                    '${forecast.minTemperature?.toStringAsFixed(1)}/${forecast.maxTemperature?.toStringAsFixed(1)}${_getTemperatureUnit()}',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: const TextStyle(color: Colors.black, fontSize: 16),
                   ),
                 ),
               ],
