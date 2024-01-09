@@ -14,6 +14,7 @@ class GetDailyForecastByCityNameUseCase
   Future<DataState<DailyForecast>> call(
       {required ForecastByCityNameParams params}) {
     return _weatherRepository.getDailyForecastByCityName(
-        params.cityName, "metric");
+      params.cityName,
+    );
   }
 }

@@ -13,6 +13,7 @@ class DailyForecast extends Equatable {
   final double? windSpeed;
   final String? weatherDescription;
   final String? weatherIcon;
+  final String unitSystem;
 
   const DailyForecast({
     required this.cityName,
@@ -26,10 +27,11 @@ class DailyForecast extends Equatable {
     this.windSpeed,
     this.weatherDescription,
     this.weatherIcon,
+    required this.unitSystem,
   });
 
   factory DailyForecast.fromDailyForecastResponse(
-      DailyForecastResponse response) {
+      DailyForecastResponse response, String unitSystem) {
     String icon = response.weatherDescriptions.isNotEmpty
         ? response.weatherDescriptions[0].icon
         : "";
@@ -39,7 +41,6 @@ class DailyForecast extends Equatable {
       latitude: response.coordinates.latitude,
       longitude: response.coordinates.longitude,
       currentTemperature: response.weather.currentTemperature,
-      // round to two decimals
       minTemperature: response.weather.minTemperature,
       maxTemperature: response.weather.maxTemperature,
       airPressure: response.weather.pressure,
@@ -49,6 +50,7 @@ class DailyForecast extends Equatable {
           ? response.weatherDescriptions[0].description
           : "",
       weatherIcon: icon,
+      unitSystem: unitSystem,
     );
   }
 
@@ -65,5 +67,6 @@ class DailyForecast extends Equatable {
         windSpeed,
         weatherDescription,
         weatherIcon,
+        unitSystem,
       ];
 }

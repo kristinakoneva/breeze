@@ -15,6 +15,7 @@ class GetMultipleDaysForecastByCityNameUseCase
   Future<DataState<MultipleDaysForecast>> call(
       {required ForecastByCityNameParams params}) {
     return _weatherRepository.getMultipleDaysForecastByCityName(
-        params.cityName, "metric");
+      params.cityName,
+    );
   }
 }

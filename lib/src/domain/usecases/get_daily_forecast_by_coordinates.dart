@@ -14,6 +14,8 @@ class GetDailyForecastByCoordinatesUseCase
   Future<DataState<DailyForecast>> call(
       {required ForecastByCoordinatesParams params}) {
     return _weatherRepository.getDailyForecastByCoordinates(
-        params.latitude, params.longitude, "metric");
+      params.latitude,
+      params.longitude,
+    );
   }
 }

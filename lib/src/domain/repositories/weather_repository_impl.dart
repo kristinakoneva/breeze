@@ -1,11 +1,11 @@
 import 'package:breeze/core/resources/data_state.dart';
+import 'package:breeze/src/data/local/shared_preferences.dart';
 import 'package:breeze/src/data/remote/api_key.dart';
 import 'package:breeze/src/data/remote/weather_api_service.dart';
 import 'package:breeze/src/domain/models/daily_forecast.dart';
 import 'package:breeze/src/domain/models/multiple_days_forecast.dart';
 import 'package:breeze/src/domain/repositories/weather_repository.dart';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 
 class WeatherRepositoryImpl implements WeatherRepository {
@@ -15,8 +15,12 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
   @override
   Future<DataState<DailyForecast>> getDailyForecastByCoordinates(
-      String latitude, String longitude, String unitSystem) async {
+    String latitude,
+    String longitude,
+  ) async {
     try {
+      final unitSystem = await getUnitSystem();
+
       final httpResponse =
           await _weatherApiService.getDailyForecastByCoordinates(
               latitude: latitude,
@@ -25,8 +29,8 @@ class WeatherRepositoryImpl implements WeatherRepository {
               apiKey: apiKey);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(
-            DailyForecast.fromDailyForecastResponse(httpResponse.data));
+        return DataSuccess(DailyForecast.fromDailyForecastResponse(
+            httpResponse.data, unitSystem));
       } else {
         return DataFailed(DioError(
             error: httpResponse.response.statusMessage,
@@ -41,14 +45,17 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
   @override
   Future<DataState<DailyForecast>> getDailyForecastByCityName(
-      String cityName, String unitSystem) async {
+    String cityName,
+  ) async {
     try {
+      final unitSystem = await getUnitSystem();
+
       final httpResponse = await _weatherApiService.getDailyForecastByCityName(
           cityName: cityName, unitSystem: unitSystem, apiKey: apiKey);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(
-            DailyForecast.fromDailyForecastResponse(httpResponse.data));
+        return DataSuccess(DailyForecast.fromDailyForecastResponse(
+            httpResponse.data, unitSystem));
       } else {
         return DataFailed(DioError(
             error: httpResponse.response.statusMessage,
@@ -63,8 +70,11 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
   @override
   Future<DataState<MultipleDaysForecast>> getMultipleDaysForecastByCityName(
-      String cityName, String unitSystem) async {
+    String cityName,
+  ) async {
     try {
+      final unitSystem = await getUnitSystem();
+
       final httpResponse =
           await _weatherApiService.getMultipleDaysForecastByCityName(
               cityName: cityName, unitSystem: unitSystem, apiKey: apiKey);
@@ -72,7 +82,9 @@ class WeatherRepositoryImpl implements WeatherRepository {
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(
             MultipleDaysForecast.fromMultipleDaysForecastResponse(
-                httpResponse.data));
+          httpResponse.data,
+          unitSystem,
+        ));
       } else {
         return DataFailed(DioError(
             error: httpResponse.response.statusMessage,

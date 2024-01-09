@@ -1,4 +1,5 @@
 import 'package:breeze/config/theme/colors.dart';
+import 'package:breeze/core/constants/constants.dart';
 import 'package:breeze/src/domain/models/daily_forecast.dart';
 import 'package:breeze/src/domain/models/forecast_by_city_name_params.dart';
 import 'package:breeze/src/domain/models/forecast_by_coordinates_params.dart';
@@ -70,7 +71,12 @@ class _HomePageState extends State<HomePage> {
                       IconButton(
                         iconSize: 30,
                         onPressed: () {
-                          _onSettingsButtonClicked(context);
+                          _onSettingsButtonClicked(
+                            context,
+                            state.dailyForecast!.unitSystem,
+                            dailyForecastBloc,
+                            state.dailyForecast!.cityName,
+                          );
                         },
                         icon: const Icon(Icons.menu),
                       )
@@ -129,11 +135,12 @@ class _HomePageState extends State<HomePage> {
       WeatherInfoWidget(
         label: "TEMPERATURE",
         value:
-            "${dailyForecast.minTemperature}/${dailyForecast.maxTemperature} °C",
+            "${dailyForecast.minTemperature?.toStringAsFixed(1)}/${dailyForecast.maxTemperature?.toStringAsFixed(1)} ${_getTemperatureUnit(dailyForecast.unitSystem)}",
       ),
       WeatherInfoWidget(
         label: "WIND SPEED",
-        value: "${dailyForecast.windSpeed} m/s",
+        value:
+            "${dailyForecast.windSpeed} ${_getWindSpeedUnit(dailyForecast.unitSystem)}",
       ),
       WeatherInfoWidget(
         label: "HUMIDITY",
@@ -150,8 +157,19 @@ class _HomePageState extends State<HomePage> {
     Navigator.pushNamed(context, '/MultipleDaysForecast', arguments: cityName);
   }
 
-  void _onSettingsButtonClicked(BuildContext context) {
-    Navigator.pushNamed(context, '/Settings');
+  void _onSettingsButtonClicked(
+    BuildContext context,
+    String unitSystem,
+    DailyForecastBloc dailyForecastBloc,
+    String cityName,
+  ) async {
+    final isImperialUnitSystem =
+        await Navigator.pushNamed(context, '/Settings', arguments: unitSystem);
+    if (isImperialUnitSystem != null &&
+        isImperialUnitSystem != (unitSystem == imperialUnitSystem)) {
+      dailyForecastBloc.add(GetDailyForecastByCityName(
+          ForecastByCityNameParams(cityName: cityName)));
+    }
   }
 
   Future<bool> _handleLocationPermission() async {
@@ -253,5 +271,15 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  _getTemperatureUnit(String unitSystem) {
+    return unitSystem == metricUnitSystem ? celsiusUnit : fahrenheitUnit;
+  }
+
+  _getWindSpeedUnit(String unitSystem) {
+    return unitSystem == metricUnitSystem
+        ? meterPerSecondUnit
+        : milesPerHourUnit;
   }
 }

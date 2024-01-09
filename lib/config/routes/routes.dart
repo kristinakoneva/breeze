@@ -14,7 +14,7 @@ class AppRoutes {
             MultipleDaysForecastPage(cityName: settings.arguments as String));
 
       case '/Settings':
-        return _materialRoute(const SettingsPage());
+        return _materialRoute(SettingsPage(unitSystem: settings.arguments as String));
 
       default:
         return _materialRoute(const HomePage());

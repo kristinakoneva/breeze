@@ -1,4 +1,5 @@
 import 'package:breeze/config/theme/colors.dart';
+import 'package:breeze/core/constants/constants.dart';
 import 'package:breeze/src/domain/models/multiple_days_forecast.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +37,7 @@ class ForecastPerDayWidget extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(8),
             child: Flex(
               direction: Axis.horizontal,
               children: [
@@ -45,25 +46,27 @@ class ForecastPerDayWidget extends StatelessWidget {
                   width: 70,
                   height: 70,
                 ),
-                Container(
-                  width: 100,
-                  margin: const EdgeInsets.only(left: 8),
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    forecast.weatherDescription ?? "",
-                    style: const TextStyle(color: Colors.black, fontSize: 18),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 4),
+                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      forecast.weatherDescription ?? "",
+                      style: const TextStyle(color: Colors.black, fontSize: 18),
+                    ),
                   ),
                 ),
-                const Spacer(),
-                Container(
-                  width: 100,
-                  margin: const EdgeInsets.only(right: 8),
-                  child: Text(
-                    '${forecast.minTemperature?.toStringAsFixed(2)}/${forecast.maxTemperature?.toStringAsFixed(2)}°C',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: const TextStyle(color: Colors.black, fontSize: 18),
+                //const Spacer(),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 8),
+                    child: Text(
+                      '${forecast.minTemperature?.toStringAsFixed(1)}/${forecast.maxTemperature?.toStringAsFixed(1)}${_getTemperatureUnit()}',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(color: Colors.black, fontSize: 16),
+                    ),
                   ),
                 ),
               ],
@@ -72,5 +75,11 @@ class ForecastPerDayWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _getTemperatureUnit() {
+    return forecast.unitSystem == metricUnitSystem
+        ? celsiusUnit
+        : fahrenheitUnit;
   }
 }

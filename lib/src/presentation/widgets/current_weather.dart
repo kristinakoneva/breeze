@@ -1,3 +1,4 @@
+import 'package:breeze/core/constants/constants.dart';
 import 'package:breeze/src/domain/models/daily_forecast.dart';
 import 'package:flutter/material.dart';
 
@@ -58,9 +59,9 @@ class CurrentWeatherWidget extends StatelessWidget {
                       '${dailyForecast.currentTemperature}',
                       style: const TextStyle(color: Colors.black, fontSize: 38),
                     ),
-                    const Text(
-                      '°C',
-                      style: TextStyle(color: Colors.black, fontSize: 32),
+                    Text(
+                      _getTemperatureUnit(),
+                      style: const TextStyle(color: Colors.black, fontSize: 32),
                     ),
                   ],
                 ),
@@ -70,5 +71,11 @@ class CurrentWeatherWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _getTemperatureUnit() {
+    return dailyForecast.unitSystem == metricUnitSystem
+        ? celsiusUnit
+        : fahrenheitUnit;
   }
 }

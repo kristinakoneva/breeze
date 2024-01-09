@@ -1,1 +1,9 @@
 const String weatherApiBaseUrl = "https://api.openweathermap.org/data/2.5/";
+const String keyUnitSystem = "key_unit_system";
+const String defaultUnitSystem = "metric";
+const String metricUnitSystem = "metric";
+const String imperialUnitSystem = "imperial";
+const String celsiusUnit = "°C";
+const String fahrenheitUnit = "°F";
+const String meterPerSecondUnit = "m/s";
+const String milesPerHourUnit = "mph";

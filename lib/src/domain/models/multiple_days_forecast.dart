@@ -10,7 +10,7 @@ class MultipleDaysForecast extends Equatable {
   });
 
   factory MultipleDaysForecast.fromMultipleDaysForecastResponse(
-      MultipleDaysForecastResponse input) {
+      MultipleDaysForecastResponse input, String unitSystem) {
     final List<ForecastPerDay> forecasts = [];
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     DateTime date = formatter.parse(input.forecastsList[0].date);
@@ -33,6 +33,7 @@ class MultipleDaysForecast extends Equatable {
             weatherDescription: description,
             minTemperature: sumMinTemp / timestampsPerDayCounter,
             maxTemperature: sumMaxTemp / timestampsPerDayCounter,
+            unitSystem: unitSystem,
           ),
         );
 
@@ -60,7 +61,9 @@ class MultipleDaysForecast extends Equatable {
     // Removing today's forecast
     forecasts.removeAt(0);
 
-    return MultipleDaysForecast(forecasts: forecasts);
+    return MultipleDaysForecast(
+      forecasts: forecasts,
+    );
   }
 
   @override
@@ -75,6 +78,7 @@ class ForecastPerDay extends Equatable {
   final String? weatherDescription;
   final double? minTemperature;
   final double? maxTemperature;
+  final String unitSystem;
 
   const ForecastPerDay({
     this.date,
@@ -82,6 +86,7 @@ class ForecastPerDay extends Equatable {
     this.weatherDescription,
     this.minTemperature,
     this.maxTemperature,
+    required this.unitSystem,
   });
 
   @override
@@ -91,5 +96,6 @@ class ForecastPerDay extends Equatable {
         weatherDescription,
         minTemperature,
         maxTemperature,
+        unitSystem,
       ];
 }

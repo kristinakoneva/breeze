@@ -1,26 +1,44 @@
 import 'package:breeze/config/theme/colors.dart';
+import 'package:breeze/core/constants/constants.dart';
+import 'package:breeze/src/data/local/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  final String unitSystem;
+
+  const SettingsPage({Key? key, required this.unitSystem}) : super(key: key);
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  bool? isImperialUnitSystem;
+
+  onWillPop() {
+    Navigator.pop(context, isImperialUnitSystem);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          iconSize: 32,
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.chevron_left),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if (!didPop) {
+          Navigator.pop(context, isImperialUnitSystem);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            iconSize: 32,
+            onPressed: () => Navigator.pop(context, isImperialUnitSystem),
+            icon: const Icon(Icons.chevron_left),
+          ),
+          title: const Text("SETTINGS"),
         ),
-        title: const Text("SETTINGS"),
+        body: _buildBody(),
       ),
-      body: _buildBody(),
     );
   }
 
@@ -41,13 +59,20 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               Switch(
-                value: false,
+                value: isImperialUnitSystem ??
+                    (widget.unitSystem == imperialUnitSystem),
                 overlayColor:
                     const MaterialStatePropertyAll<Color>(Colors.grey),
                 trackColor: const MaterialStatePropertyAll<Color>(Colors.white),
                 thumbColor: const MaterialStatePropertyAll<Color>(colorPrimary),
-                onChanged: (value) {
-                  // TODO: Implement logic for changing unit system
+                onChanged: (isImperialUnitSystem) {
+                  final unitSystem = isImperialUnitSystem
+                      ? imperialUnitSystem
+                      : metricUnitSystem;
+                  setUnitSystem(unitSystem);
+                  setState(() {
+                    this.isImperialUnitSystem = isImperialUnitSystem;
+                  });
                 },
               ),
             ],
