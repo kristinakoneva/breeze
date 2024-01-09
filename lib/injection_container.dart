@@ -1,4 +1,4 @@
-import 'package:breeze/src/data/data_sources/remote/weather_api_service.dart';
+import 'package:breeze/src/data/remote/weather_api_service.dart';
 import 'package:breeze/src/domain/repositories/weather_repository.dart';
 import 'package:breeze/src/domain/repositories/weather_repository_impl.dart';
 import 'package:breeze/src/domain/usecases/get_daily_forecast_by_city_name.dart';

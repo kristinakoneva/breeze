@@ -1,5 +1,5 @@
 import 'package:breeze/core/constants/constants.dart';
-import 'package:breeze/src/data/data_sources/remote/models/multiple_days_forecast.dart';
+import 'package:breeze/src/data/remote/models/multiple_days_forecast.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'api_key.dart';

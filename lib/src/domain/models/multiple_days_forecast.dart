@@ -1,4 +1,4 @@
-import 'package:breeze/src/data/data_sources/remote/models/multiple_days_forecast.dart';
+import 'package:breeze/src/data/remote/models/multiple_days_forecast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 

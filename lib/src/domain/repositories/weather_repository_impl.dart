@@ -1,6 +1,6 @@
 import 'package:breeze/core/resources/data_state.dart';
-import 'package:breeze/src/data/data_sources/remote/api_key.dart';
-import 'package:breeze/src/data/data_sources/remote/weather_api_service.dart';
+import 'package:breeze/src/data/remote/api_key.dart';
+import 'package:breeze/src/data/remote/weather_api_service.dart';
 import 'package:breeze/src/domain/models/daily_forecast.dart';
 import 'package:breeze/src/domain/models/multiple_days_forecast.dart';
 import 'package:breeze/src/domain/repositories/weather_repository.dart';
