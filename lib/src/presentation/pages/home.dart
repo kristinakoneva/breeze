@@ -322,7 +322,7 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               BlocProvider.of<DailyForecastBloc>(context).add(
                   GetDailyForecastByCityName(ForecastByCityNameParams(
-                      cityName: searchSuggestions[index])));
+                      cityName: searchSuggestions[searchSuggestions.length - index - 1])));
             },
           ),
         );
