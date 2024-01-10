@@ -1,9 +1,9 @@
 import 'package:breeze/core/constants/constants.dart';
-import 'package:breeze/src/data/remote/models/multiple_days_forecast.dart';
+import 'package:breeze/src/data/remote/models/multiple_days_forecast_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'api_key.dart';
-import 'models/daily_forecast.dart';
+import 'models/daily_forecast_response.dart';
 
 part 'weather_api_service.g.dart';
 

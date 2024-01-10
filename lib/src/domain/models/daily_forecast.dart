@@ -1,4 +1,4 @@
-import 'package:breeze/src/data/remote/models/daily_forecast.dart';
+import 'package:breeze/src/data/remote/models/daily_forecast_response.dart';
 import 'package:equatable/equatable.dart';
 
 class DailyForecast extends Equatable {
