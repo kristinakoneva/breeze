@@ -1,5 +1,6 @@
 import 'package:breeze/config/theme/colors.dart';
 import 'package:breeze/core/constants/constants.dart';
+import 'package:breeze/src/data/local/shared_preferences.dart';
 import 'package:breeze/src/domain/models/daily_forecast.dart';
 import 'package:breeze/src/domain/models/forecast_by_city_name_params.dart';
 import 'package:breeze/src/domain/models/forecast_by_coordinates_params.dart';
@@ -10,6 +11,7 @@ import 'package:breeze/src/presentation/widgets/current_weather.dart';
 import 'package:breeze/src/presentation/widgets/weather_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:geolocator/geolocator.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,15 +22,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> searchSuggestions = [];
+
   @override
   Widget build(BuildContext context) {
     DailyForecastBloc dailyForecastBloc =
         BlocProvider.of<DailyForecastBloc>(context);
+    _refreshSearchSuggestions();
     _getCurrentPosition(dailyForecastBloc);
-    return Scaffold(body: _buildBody(dailyForecastBloc));
+    return KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
+      return Scaffold(body: _buildBody(dailyForecastBloc, isKeyboardVisible));
+    });
   }
 
-  _buildBody(DailyForecastBloc dailyForecastBloc) {
+  _buildBody(DailyForecastBloc dailyForecastBloc, bool isKeyboardVisible) {
     return BlocBuilder<DailyForecastBloc, DailyForecastState>(
       builder: (context, state) {
         if (state is DailyForecastLoading) {
@@ -38,6 +45,11 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         } else if (state is DailyForecastSuccess) {
+          String cityName = state.dailyForecast!.cityName;
+          addSearchSuggestion(cityName);
+          if (!searchSuggestions.contains(cityName)) {
+            searchSuggestions.add(cityName);
+          }
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: SafeArea(
@@ -75,13 +87,15 @@ class _HomePageState extends State<HomePage> {
                             context,
                             state.dailyForecast!.unitSystem,
                             dailyForecastBloc,
-                            state.dailyForecast!.cityName,
+                            cityName,
                           );
                         },
                         icon: const Icon(Icons.menu),
                       )
                     ],
                   ),
+                  if (isKeyboardVisible)
+                    SizedBox(height: 200, child: _getListOfSearchSuggestions()),
                   CurrentWeatherWidget(
                     dailyForecast: state.dailyForecast!,
                   ),
@@ -90,8 +104,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      _onNext3DaysButtonClicked(
-                          context, state.dailyForecast!.cityName);
+                      _onNext3DaysButtonClicked(context, cityName);
                     },
                     child: const Flex(
                       direction: Axis.horizontal,
@@ -170,6 +183,7 @@ class _HomePageState extends State<HomePage> {
       dailyForecastBloc.add(GetDailyForecastByCityName(
           ForecastByCityNameParams(cityName: cityName)));
     }
+    _refreshSearchSuggestions();
   }
 
   Future<bool> _handleLocationPermission() async {
@@ -225,7 +239,6 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Breeze App"),
         content: Text(message),
         actions: [
           TextButton(
@@ -245,7 +258,6 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Breeze App"),
         content: const Text("Location permissions are permanently denied.\n\n"
             " Please enable the location services if you want to get the forecast for you current position."),
         actions: [
@@ -281,5 +293,40 @@ class _HomePageState extends State<HomePage> {
     return unitSystem == metricUnitSystem
         ? meterPerSecondUnit
         : milesPerHourUnit;
+  }
+
+  _refreshSearchSuggestions() async {
+    searchSuggestions = await getSearchSuggestions();
+  }
+
+  _getListOfSearchSuggestions() {
+    return ListView.builder(
+      itemCount: searchSuggestions.length,
+      itemBuilder: (context, index) {
+        return Card(
+          elevation: 0,
+          color: colorSurface,
+          child: ListTile(
+            shape: const Border(
+              bottom: BorderSide(
+                color: Colors.white,
+                width: 0.5,
+              ),
+            ),
+            title: Text(searchSuggestions[searchSuggestions.length - index - 1],
+                style: const TextStyle(color: Colors.white)),
+            trailing: const Icon(
+              Icons.arrow_forward,
+              color: Colors.white,
+            ),
+            onTap: () {
+              BlocProvider.of<DailyForecastBloc>(context).add(
+                  GetDailyForecastByCityName(ForecastByCityNameParams(
+                      cityName: searchSuggestions[index])));
+            },
+          ),
+        );
+      },
+    );
   }
 }

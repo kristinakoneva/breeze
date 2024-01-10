@@ -42,6 +42,8 @@ dependencies:
   # Shared Preferences
   shared_preferences: ^2.2.2
 
+  # Keyboard visibility listener
+  flutter_keyboard_visibility: ^6.0.0
 
 dev_dependencies:
   flutter_test:

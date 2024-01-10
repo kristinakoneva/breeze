@@ -7,3 +7,4 @@ const String celsiusUnit = "°C";
 const String fahrenheitUnit = "°F";
 const String meterPerSecondUnit = "m/s";
 const String milesPerHourUnit = "mph";
+const String keySearchSuggestions = "key_search_suggestions";

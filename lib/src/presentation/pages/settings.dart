@@ -99,13 +99,59 @@ class _SettingsPageState extends State<SettingsPage> {
               IconButton(
                 iconSize: 30,
                 onPressed: () {
-                  // TODO: Implement logic for deleting search history
+                  _showDeleteHistoryConfirmationDialog();
                 },
                 icon: const Icon(Icons.delete),
               ),
             ],
           ),
         ]),
+      ),
+    );
+  }
+
+  _showDeleteHistoryConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: const Text(
+            "Are you sure you want to delete your search history?",
+          ),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: colorPrimary,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("CANCEL",
+                  style: TextStyle(color: Colors.white, fontSize: 12)),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: colorPrimary,
+              ),
+              onPressed: () {
+                clearSearchSuggestions();
+                Navigator.pop(context);
+                _showSnackBar("Search history deleted");
+              },
+              child: const Text("DELETE",
+                  style: TextStyle(color: Colors.white, fontSize: 12)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
