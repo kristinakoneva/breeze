@@ -130,13 +130,37 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           );
-        } else if (state is DailyForecastError) {
-          return const Center(
-            child: Text("Error"),
-          );
         } else {
-          return const Center(
-            child: Text("Something went wrong"),
+          return Padding(
+            padding: const EdgeInsets.all(24),
+            child: Center(
+              child: Flex(
+                direction: Axis.vertical,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flex(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      direction: Axis.horizontal,
+                      children: [
+                        const Text("Something went wrong."),
+                        IconButton(
+                            onPressed: () {
+                              _getCurrentPosition(dailyForecastBloc);
+                            },
+                            icon: const Icon(
+                              Icons.refresh,
+                              size: 30,
+                            )),
+                      ]),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  const Text(
+                      "Please make sure you are searching for a valid city name and have stable Internet connection.",
+                      style: TextStyle(fontSize: 12)),
+                ],
+              ),
+            ),
           );
         }
       },
@@ -322,7 +346,8 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               BlocProvider.of<DailyForecastBloc>(context).add(
                   GetDailyForecastByCityName(ForecastByCityNameParams(
-                      cityName: searchSuggestions[searchSuggestions.length - index - 1])));
+                      cityName: searchSuggestions[
+                          searchSuggestions.length - index - 1])));
             },
           ),
         );
