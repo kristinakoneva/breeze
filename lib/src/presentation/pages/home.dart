@@ -110,7 +110,10 @@ class _HomePageState extends State<HomePage> {
                       direction: Axis.horizontal,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("NEXT 3 DAYS"),
+                        Text(
+                          "NEXT 3 DAYS",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         Icon(Icons.arrow_forward)
                       ],
                     ),
