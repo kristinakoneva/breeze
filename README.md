@@ -38,7 +38,7 @@ The app design can be found on the following [Figma link](https://www.figma.com/
 ## Demo
 _Click on the image to play the video demo._
 
-<a href="[path/to/your/video.mp4](https://www.youtube.com/watch?v=HtOETUaVBgs)">
+<a href="https://www.youtube.com/watch?v=HtOETUaVBgs">
   <img src="https://github.com/kristinakoneva/breeze/assets/83497391/545b97ed-a015-4bb3-9140-43ca8250e720" alt="Demo" width=30% height=30% />
 </a>
 
