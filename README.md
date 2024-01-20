@@ -32,8 +32,8 @@ All of the API calls present in the app are currently free to use (take a look a
 For a more detailed overview of the versions used for these dependencies and the rest of the setup, check out the project's [pubspec.yaml](pubspec.yaml) file.
 
 ## Demo
+[![Demo](https://img.youtube.com/vi/HtOETUaVBgs/0.jpg)](https://www.youtube.com/watch?v=HtOETUaVBgs)
 
-// TODO
 
 ## Architecture
 
