@@ -6,7 +6,7 @@ Breeze is a cross-platform weather app built with Flutter using the Dart as a pr
 
 The app displays the daily and the next 3 days weather forecast for the user's current location (however, this only applies if the location permissions are granted, otherwise, the weather for a default city is displayed when launching the app). The daily forecast provides data about the current temperature, weather descaription, the minimum and maximum temperature for the day, air pressure, humidity percentage and wind speed. The forecast for the following 3 days, displays information about the minimum and maximum temperature of the specific day and a description of the weather condition.
 
-Addtionally, the user can search for the forecast for numerous cities around the world by typing the citys' name. All successful searches are saved and the search history can be deleted upon request. 
+Additionally, the user can search for the forecast for numerous cities around the world by typing the citys' name. All successful searches are saved and the search history can be deleted upon request. 
 
 Moreover, the app has support for both the metric and imperial user system - the user can set their preferred unit system from the app settings (the default unit system is the metric unit system).
 
