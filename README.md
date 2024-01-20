@@ -31,6 +31,9 @@ All of the API calls present in the app are currently free to use (take a look a
 
 For a more detailed overview of the versions used for these dependencies and the rest of the setup, check out the project's [pubspec.yaml](pubspec.yaml) file.
 
+## Design
+The app design can be found on the following [Figma link](https://www.figma.com/file/SelluHxNQHRYpyPeYN0VUJ/Breeze?type=design&node-id=0%3A1&mode=design&t=v7HfX0rFP3RTbUQU-1).
+
 ## Demo
 _Click on the image to play the video demo._
 
