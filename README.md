@@ -12,6 +12,8 @@ Moreover, the app has support for both the metric and imperial user system - the
 
 This app is primarly intended to be used on mobile devices, however, it can successfully run on web browsers as well.
 
+Breeze requires Internet connection to function properly.
+
 ## API
 The weather forecast data is provided by the [Open Weather Map API](https://openweathermap.org/). For the current weather forecast, the [Current Weather API calls](https://openweathermap.org/current) are used and for determining the forecast for the next 3 days, part of the [5 Day Weather Forecast API calls](https://openweathermap.org/forecast5) are used.
 
@@ -33,7 +35,7 @@ All of the API calls present in the app are currently free to use (take a look a
 For a more detailed overview of the versions used for these dependencies and the rest of the setup, check out the project's [pubspec.yaml](pubspec.yaml) file.
 
 ## Design
-The app design can be found on the following [Figma link](https://www.figma.com/file/SelluHxNQHRYpyPeYN0VUJ/Breeze?type=design&node-id=0%3A1&mode=design&t=v7HfX0rFP3RTbUQU-1).
+The app design can be found on the following [Figma link](https://www.figma.com/file/SelluHxNQHRYpyPeYN0VUJ/Breeze?type=design&node-id=0%3A1&mode=design&t=v7HfX0rFP3RTbUQU-1). The app is available in portrait mode only.
 
 ## Theme
 This app follows the [Material Design](https://m3.material.io/) design system. The app colors are defined in the [colors.dart](lib/config/theme/colors.dart) file and the theme is defined in the [theme.dart](lib/config/theme/theme.dart) file in the [config](lib/config) directory.
