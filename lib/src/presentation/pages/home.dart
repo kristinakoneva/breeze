@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -50,6 +51,8 @@ class _HomePageState extends State<HomePage> {
           if (!searchSuggestions.contains(cityName)) {
             searchSuggestions.add(cityName);
           }
+          DateTime now = DateTime.now();
+          String lastUpdateTime = DateFormat('HH:mm dd/MM/yy').format(now);
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: SafeArea(
@@ -99,8 +102,27 @@ class _HomePageState extends State<HomePage> {
                   CurrentWeatherWidget(
                     dailyForecast: state.dailyForecast!,
                   ),
-                  const SizedBox(
-                    height: 16,
+                  Flex(
+                    direction: Axis.horizontal,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Last update: $lastUpdateTime",
+                        style: const TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          dailyForecastBloc.add(GetDailyForecastByCityName(
+                              ForecastByCityNameParams(cityName: cityName)));
+                        },
+                        icon: const Icon(
+                          Icons.refresh,
+                          size: 24,
+                        ),
+                      ),
+                    ],
                   ),
                   TextButton(
                     onPressed: () {
