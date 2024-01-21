@@ -1,4 +1,4 @@
-import 'package:breeze/core/resources/data_state.dart';
+import 'package:breeze/core/states/data_state.dart';
 import 'package:breeze/src/data/local/shared_preferences.dart';
 import 'package:breeze/src/data/remote/api_key.dart';
 import 'package:breeze/src/data/remote/weather_api_service.dart';

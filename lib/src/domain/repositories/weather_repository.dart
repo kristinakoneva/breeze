@@ -1,4 +1,4 @@
-import 'package:breeze/core/resources/data_state.dart';
+import 'package:breeze/core/states/data_state.dart';
 import 'package:breeze/src/domain/models/daily_forecast.dart';
 import 'package:breeze/src/domain/models/multiple_days_forecast.dart';
 

@@ -1,4 +1,4 @@
-import 'package:breeze/core/resources/data_state.dart';
+import 'package:breeze/core/states/data_state.dart';
 import 'package:breeze/core/use_case/use_case.dart';
 import 'package:breeze/src/domain/models/forecast_by_city_name_params.dart';
 import 'package:breeze/src/domain/models/multiple_days_forecast.dart';
