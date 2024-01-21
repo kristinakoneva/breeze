@@ -64,3 +64,6 @@ The presentation layer is the UI - what the user sees on the screen. It consiste
 Additionally, the following concepts contribute to the easier and cleaner state management:
 - `BlocProvider` - a widget provided by the [`flutter_bloc`](https://pub.dev/packages/flutter_bloc) package that adds a `Bloc` to the widget tree, ensures that the `Bloc` is created only once and is accessible to all the widgets in the subtree
 - `BlocBuilder` - a widget provided by the [`flutter_bloc`](https://pub.dev/packages/flutter_bloc) package that helps to connect the `Bloc` to the user interface, listens to changes in the state of the `Bloc` and rebuilds the UI accordingly.
+
+## Dependency Injection
+For simple dependency injection, this app uses the [get_it](https://pub.dev/packages/get_it) Service Locator. This service locator provides Dio, all of the blocs and use cases, the repositories and the API service inside the [injection_container.dart](lib/injection_container.dart).
