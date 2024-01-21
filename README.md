@@ -43,6 +43,24 @@ _Click on the image to play the video demo._
 </a>
 
 ## Architecture
+This app is divided into three layers: data, domain and presentation layer. The state management is handled following the BLoC pattern.
 
-// TODO
+### Data Layer
+The data layer consists of two data sources: 
+- remote source (the API service which provides the API for fetching the wetaher forecasts)
+- local source (shared preferences which locally provides and stores the chosen unit system and the search suggestions from the search history).
 
+### Domain Layer
+The domain layer serves as a connection between the data and the domain layer. It consists of domain models, repositories and use cases. The data models - responses from the remote API source are tranformed into domain models in this layer. The repositories provide an interface for communicating with the data sources and their interface is used by the use cases. The use cases are defined in the domain layer and used in the presentation layer. They serve as an abstracted clean link to the data sources (without knowing their implementation and origin) in the presentation layer. All use cases extend from the custom [`UseCase<Type, Params>`](lib/core/use_case/use_case.dart) class.
+
+### Presentation Layer
+The presentation layer is the UI - what the user sees on the screen. It consistes of 
+- pages - the UI for each screen of the app
+- widgets - custom views used in the pages
+- events - user actions which can trigger a state change
+- states - represent the current state of the app
+- blocs - consume events, process them and change the app state appropriately.
+
+Additionally, the following concepts contribute to the easier and cleaner state management:
+- `BlocProvider` - a widget provided by the [`flutter_bloc`](https://pub.dev/packages/flutter_bloc) package that adds a `Bloc` to the widget tree, ensures that the `Bloc` is created only once and is accessible to all the widgets in the subtree
+- `BlocBuilder` - a widget provided by the [`flutter_bloc`](https://pub.dev/packages/flutter_bloc) package that helps to connect the `Bloc` to the user interface, listens to changes in the state of the `Bloc` and rebuilds the UI accordingly.
