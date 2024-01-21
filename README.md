@@ -35,6 +35,9 @@ For a more detailed overview of the versions used for these dependencies and the
 ## Design
 The app design can be found on the following [Figma link](https://www.figma.com/file/SelluHxNQHRYpyPeYN0VUJ/Breeze?type=design&node-id=0%3A1&mode=design&t=v7HfX0rFP3RTbUQU-1).
 
+## Theme
+This app follows the [Material Design](https://m3.material.io/) design system. The app colors are defined in the [colors.dart](lib/config/theme/colors.dart) file and the theme is defined in the [theme.dart](lib/config/theme/theme.dart) file in the [config](lib/config) directory.
+
 ## Demo
 _Click on the image to play the video demo._
 
