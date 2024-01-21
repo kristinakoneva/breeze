@@ -1,8 +1,10 @@
+/// Represents the response for the multiple days weather forecast.
 class MultipleDaysForecastResponse {
   final List<Forecast> forecastsList;
 
   MultipleDaysForecastResponse({required this.forecastsList});
 
+  /// Parses the JSON response from the API.
   factory MultipleDaysForecastResponse.fromJson(Map<String, dynamic> map) {
     return MultipleDaysForecastResponse(
       forecastsList: (map['list'] as List<dynamic>?)

@@ -3,6 +3,7 @@ import 'package:breeze/core/constants/constants.dart';
 import 'package:breeze/src/domain/models/multiple_days_forecast.dart';
 import 'package:flutter/material.dart';
 
+/// Widget to display forecast information for a specific day.
 class ForecastPerDayWidget extends StatelessWidget {
   final ForecastPerDay forecast;
   final String dayLabel;
@@ -73,6 +74,7 @@ class ForecastPerDayWidget extends StatelessWidget {
     );
   }
 
+  /// Gets the temperature unit based on the unit system.
   _getTemperatureUnit() {
     return forecast.unitSystem == metricUnitSystem
         ? celsiusUnit

@@ -11,8 +11,11 @@ import 'injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initializes the dependency injection container.
   await initializeDependencies();
 
+  // Locks the device orientation to portrait mode.
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

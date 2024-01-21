@@ -4,16 +4,21 @@ import 'package:breeze/src/presentation/bloc/multiple_days_forecast/multiple_day
 import 'package:breeze/src/presentation/bloc/multiple_days_forecast/multiple_days_forecast_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// BLoC class responsible for handling multiple days forecast.
 class MultipleDaysForecastBloc
     extends Bloc<MultipleDaysForecastEvent, MultipleDaysForecastState> {
   final GetMultipleDaysForecastByCityNameUseCase
       _getMultipleDaysForecastByCityNameUseCase;
 
+  /// Creates a new instance of [MultipleDaysForecastBloc].
+  ///
+  /// Requires [GetMultipleDaysForecastByCityNameUseCase] for fetching multiple days forecast.
   MultipleDaysForecastBloc(this._getMultipleDaysForecastByCityNameUseCase)
       : super(const MultipleDaysForecastLoading()) {
     on<GetMultipleDaysForecastByCityName>(onGetMultipleDaysForecastByCityName);
   }
 
+  /// Event handler for fetching multiple days forecast by city name.
   void onGetMultipleDaysForecastByCityName(
       GetMultipleDaysForecastByCityName event,
       Emitter<MultipleDaysForecastState> emit) async {

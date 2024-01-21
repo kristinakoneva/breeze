@@ -1,3 +1,4 @@
+/// Represents the response for the daily weather forecast.
 class DailyForecastResponse {
   Coordinates coordinates;
   List<WeatherDescription> weatherDescriptions;
@@ -13,6 +14,7 @@ class DailyForecastResponse {
     required this.cityName,
   });
 
+  /// Parses the JSON response from the API.
   factory DailyForecastResponse.fromJson(Map<String, dynamic> map) {
     return DailyForecastResponse(
       coordinates: Coordinates(

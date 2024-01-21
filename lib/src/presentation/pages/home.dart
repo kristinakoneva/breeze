@@ -192,6 +192,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Returns a list of [WeatherInfoWidget] based on the provided DailyForecast.
   _getListOfWeatherInfoWidgets(DailyForecast dailyForecast) {
     return [
       WeatherInfoWidget(
@@ -215,10 +216,13 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
+  /// Navigates to the [MultipleDaysForecastPage] with the provided city name.
   void _onNext3DaysButtonClicked(BuildContext context, String cityName) {
     Navigator.pushNamed(context, '/MultipleDaysForecast', arguments: cityName);
   }
 
+  /// Handles the settings button click event by navigating to the [SettingsPage]
+  /// and updating the forecast if the unit system has changed.
   void _onSettingsButtonClicked(
     BuildContext context,
     String unitSystem,
@@ -235,6 +239,7 @@ class _HomePageState extends State<HomePage> {
     _refreshSearchSuggestions();
   }
 
+  /// Handles the location permission logic and shows relevant dialogs.
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -261,12 +266,13 @@ class _HomePageState extends State<HomePage> {
     return true;
   }
 
+  /// Retrieves the current position and updates the forecast based on the location.
   _getCurrentPosition(DailyForecastBloc dailyForecastBloc) async {
     final hasPermission = await _handleLocationPermission();
 
     if (!hasPermission) {
       // Default location
-      dailyForecastBloc.add(GetDailyForecastByCityName(
+      dailyForecastBloc.add(const GetDailyForecastByCityName(
           ForecastByCityNameParams(cityName: "Skopje")));
       return;
     }
@@ -278,12 +284,13 @@ class _HomePageState extends State<HomePage> {
               longitude: position.longitude.toString())));
     }).catchError((e) {
       // Default location
-      dailyForecastBloc.add(GetDailyForecastByCityName(
+      dailyForecastBloc.add(const GetDailyForecastByCityName(
           ForecastByCityNameParams(cityName: "Skopje")));
       debugPrint(e);
     });
   }
 
+  /// Shows an alert dialog with the provided message.
   _showAlertDialog(String message) {
     showDialog(
       context: context,
@@ -303,6 +310,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Shows an alert dialog indicating that location permissions are permanently denied.
   _showLocationPermissionPermanentlyDeniedAlertDialog() {
     showDialog(
       context: context,
@@ -334,20 +342,28 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Returns the temperature unit based on the provided [unitSystem].
   _getTemperatureUnit(String unitSystem) {
     return unitSystem == metricUnitSystem ? celsiusUnit : fahrenheitUnit;
   }
 
+  /// Returns the wind speed unit based on the provided [unitSystem].
   _getWindSpeedUnit(String unitSystem) {
     return unitSystem == metricUnitSystem
         ? meterPerSecondUnit
         : milesPerHourUnit;
   }
 
+  /// Refreshes the list of search suggestions.
+  ///
+  /// Retrieves updated search suggestions from local storage.
   _refreshSearchSuggestions() async {
     searchSuggestions = await getSearchSuggestions();
   }
 
+  /// Builds a ListView of search suggestions.
+  ///
+  /// The suggestions are displayed in reverse order (the last searched city is displayed first).
   _getListOfSearchSuggestions() {
     return ListView.builder(
       itemCount: searchSuggestions.length,

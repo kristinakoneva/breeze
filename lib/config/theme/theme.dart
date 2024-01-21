@@ -1,7 +1,12 @@
 import 'package:breeze/config/theme/colors.dart';
 import 'package:flutter/material.dart';
 
+/// A class providing the theme configuration for the application.
 ThemeData theme() {
+  /// Returns a customized [ThemeData] for the application.
+  ///
+  /// The theme includes color schemes, button styles, text themes, icon styles,
+  /// dialog themes, and an app bar theme.
   return ThemeData(
     colorScheme: ColorScheme.fromSeed(
       seedColor: colorPrimary,
@@ -48,6 +53,9 @@ ThemeData theme() {
   );
 }
 
+/// Returns a customized [AppBarTheme] for the application's app bar.
+///
+/// The app bar theme includes color, elevation, centering title, and text styles.
 AppBarTheme appBarTheme() {
   return const AppBarTheme(
     color: colorSurface,

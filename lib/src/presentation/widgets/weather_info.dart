@@ -1,6 +1,7 @@
 import 'package:breeze/config/theme/colors.dart';
 import 'package:flutter/material.dart';
 
+/// Widget to display weather information.
 class WeatherInfoWidget extends StatelessWidget {
   final String label;
   final String value;

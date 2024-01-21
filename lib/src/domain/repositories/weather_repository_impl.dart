@@ -8,9 +8,13 @@ import 'package:breeze/src/domain/repositories/weather_repository.dart';
 import 'dart:io';
 import 'package:dio/dio.dart';
 
+/// Implementation of [WeatherRepository] responsible for fetching weather data.
 class WeatherRepositoryImpl implements WeatherRepository {
   final WeatherApiService _weatherApiService;
 
+  /// Creates a new instance of [WeatherRepositoryImpl].
+  ///
+  /// Requires a [WeatherApiService] instance for making API calls.
   WeatherRepositoryImpl(this._weatherApiService);
 
   @override

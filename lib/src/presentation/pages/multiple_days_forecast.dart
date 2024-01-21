@@ -73,6 +73,7 @@ class _MultipleDaysForecastPageState extends State<MultipleDaysForecastPage> {
     });
   }
 
+  /// Builds a list of forecast items based on the provided list of [forecasts].
   _getListItems(List<ForecastPerDay> forecasts) {
     return [
       ForecastPerDayWidget(
@@ -90,6 +91,7 @@ class _MultipleDaysForecastPageState extends State<MultipleDaysForecastPage> {
     ];
   }
 
+  /// Returns the day of the week as a string for the provided date.
   _getDayOfWeek(DateTime date) {
     switch (date.weekday) {
       case 1:

@@ -110,6 +110,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  /// Shows a confirmation dialog for deleting search history.
   _showDeleteHistoryConfirmationDialog() {
     showDialog(
       context: context,
@@ -147,6 +148,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  /// Shows a [SnackBar] with the provided message.
   _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

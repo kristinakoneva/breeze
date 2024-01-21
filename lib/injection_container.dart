@@ -11,6 +11,7 @@ import 'package:dio/dio.dart';
 
 final serviceLocator = GetIt.instance;
 
+/// Initializes the dependency injection container.
 Future<void> initializeDependencies() async {
   // Dio
   serviceLocator.registerSingleton<Dio>(Dio());

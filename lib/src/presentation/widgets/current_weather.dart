@@ -2,6 +2,7 @@ import 'package:breeze/core/constants/constants.dart';
 import 'package:breeze/src/domain/models/daily_forecast.dart';
 import 'package:flutter/material.dart';
 
+/// Widget to display the current weather information.
 class CurrentWeatherWidget extends StatelessWidget {
   final DailyForecast dailyForecast;
 
@@ -73,6 +74,7 @@ class CurrentWeatherWidget extends StatelessWidget {
     );
   }
 
+  /// Gets the temperature unit based on the unit system.
   _getTemperatureUnit() {
     return dailyForecast.unitSystem == metricUnitSystem
         ? celsiusUnit
