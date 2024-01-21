@@ -43,7 +43,7 @@ class ForecastPerDayWidget extends StatelessWidget {
               direction: Axis.horizontal,
               children: [
                 Image.network(
-                  forecast.weatherIcon ?? "",
+                  forecast.weatherIcon,
                   width: 70,
                   height: 70,
                 ),
@@ -52,7 +52,7 @@ class ForecastPerDayWidget extends StatelessWidget {
                   child: Text(
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    forecast.weatherDescription ?? "",
+                    forecast.weatherDescription,
                     style: const TextStyle(color: Colors.black, fontSize: 18),
                   ),
                 ),
@@ -60,7 +60,7 @@ class ForecastPerDayWidget extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(right: 8),
                   child: Text(
-                    '${forecast.minTemperature?.toStringAsFixed(1)}/${forecast.maxTemperature?.toStringAsFixed(1)}${_getTemperatureUnit()}',
+                    '${forecast.minTemperature.toStringAsFixed(1)}/${forecast.maxTemperature.toStringAsFixed(1)}${_getTemperatureUnit()}',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: const TextStyle(color: Colors.black, fontSize: 16),

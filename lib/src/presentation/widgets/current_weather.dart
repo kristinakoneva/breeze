@@ -45,10 +45,10 @@ class CurrentWeatherWidget extends StatelessWidget {
               direction: Axis.vertical,
               children: [
                 Image.network(
-                  dailyForecast.weatherIcon ?? "",
+                  dailyForecast.weatherIcon,
                 ),
                 Text(
-                  dailyForecast.weatherDescription ?? "",
+                  dailyForecast.weatherDescription,
                   style: const TextStyle(color: Colors.black, fontSize: 28),
                 ),
                 Flex(

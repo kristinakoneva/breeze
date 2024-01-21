@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
       WeatherInfoWidget(
         label: "TEMPERATURE",
         value:
-            "${dailyForecast.minTemperature?.toStringAsFixed(1)}/${dailyForecast.maxTemperature?.toStringAsFixed(1)} ${_getTemperatureUnit(dailyForecast.unitSystem)}",
+            "${dailyForecast.minTemperature.toStringAsFixed(1)}/${dailyForecast.maxTemperature.toStringAsFixed(1)} ${_getTemperatureUnit(dailyForecast.unitSystem)}",
       ),
       WeatherInfoWidget(
         label: "WIND SPEED",

@@ -61,19 +61,19 @@ class MultipleDaysForecast extends Equatable {
 
         // Resetting the counters and variables for the next day.
         timestampsPerDayCounter = 0;
-        icon = forecast.weatherDescriptions?.first.icon ?? '';
-        description = forecast.weatherDescriptions?.first.description ?? '';
+        icon = forecast.iconCode;
+        description = forecast.weatherDescription;
         date = formatter.parse(forecast.date);
-        sumMinTemp = forecast.weather.minTemperature;
-        sumMaxTemp = forecast.weather.maxTemperature;
+        sumMinTemp = forecast.minTemperature;
+        sumMaxTemp = forecast.maxTemperature;
       } else {
         // If the date of the forecast is the same as the date of the previous forecast,
         // add the forecast data to the counters and variables.
-        sumMaxTemp += forecast.weather.maxTemperature;
-        sumMinTemp += forecast.weather.minTemperature;
+        sumMaxTemp += forecast.maxTemperature;
+        sumMinTemp += forecast.minTemperature;
         timestampsPerDayCounter++;
-        icon = forecast.weatherDescriptions?.first.icon ?? '';
-        description = forecast.weatherDescriptions?.first.description ?? '';
+        icon = forecast.iconCode;
+        description = forecast.weatherDescription;
         date = formatter.parse(forecast.date);
       }
     }
@@ -95,32 +95,30 @@ class MultipleDaysForecast extends Equatable {
 /// Represents a forecast for a specific day.
 class ForecastPerDay extends Equatable {
   /// The date of the forecast.
-  final DateTime? date;
+  final DateTime date;
 
   /// The URL representing the weather icon for the forecast.
-  final String? weatherIcon;
+  final String weatherIcon;
 
   /// The description of the weather for the forecast.
-  final String? weatherDescription;
+  final String weatherDescription;
 
   /// The minimum temperature for the forecast.
-  final double? minTemperature;
+  final double minTemperature;
 
   /// The maximum temperature for the forecast.
-  final double? maxTemperature;
+  final double maxTemperature;
 
   /// The unit system used for temperature measurements in the forecast.
   final String unitSystem;
 
   /// Creates a new instance of [ForecastPerDay].
-  ///
-  /// Requires various parameters representing the forecast details.
   const ForecastPerDay({
-    this.date,
-    this.weatherIcon,
-    this.weatherDescription,
-    this.minTemperature,
-    this.maxTemperature,
+    required this.date,
+    required this.weatherIcon,
+    required this.weatherDescription,
+    required this.minTemperature,
+    required this.maxTemperature,
     required this.unitSystem,
   });
 

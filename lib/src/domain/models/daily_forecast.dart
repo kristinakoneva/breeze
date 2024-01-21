@@ -7,53 +7,51 @@ class DailyForecast extends Equatable {
   final String cityName;
 
   /// The latitude of the location associated with the forecast.
-  final double? latitude;
+  final double latitude;
 
   /// The longitude of the location associated with the forecast.
-  final double? longitude;
+  final double longitude;
 
   /// The current temperature in the forecast.
-  final double? currentTemperature;
+  final double currentTemperature;
 
   /// The minimum temperature in the forecast.
-  final double? minTemperature;
+  final double minTemperature;
 
   /// The maximum temperature in the forecast.
-  final double? maxTemperature;
+  final double maxTemperature;
 
   /// The air pressure in the forecast.
-  final int? airPressure;
+  final int airPressure;
 
   /// The humidity in the forecast.
-  final int? humidity;
+  final int humidity;
 
   /// The wind speed in the forecast.
-  final double? windSpeed;
+  final double windSpeed;
 
   /// The description of the weather in the forecast.
-  final String? weatherDescription;
+  final String weatherDescription;
 
   /// The URL representing the weather icon in the forecast.
-  final String? weatherIcon;
+  final String weatherIcon;
 
   /// The unit system used for temperature measurements in the forecast.
   final String unitSystem;
 
   /// Creates a new instance of [DailyForecast].
-  ///
-  /// Requires [cityName], [unitSystem], and other parameters are optional.
   const DailyForecast({
     required this.cityName,
-    this.latitude,
-    this.longitude,
-    this.currentTemperature,
-    this.minTemperature,
-    this.maxTemperature,
-    this.airPressure,
-    this.humidity,
-    this.windSpeed,
-    this.weatherDescription,
-    this.weatherIcon,
+    required this.latitude,
+    required this.longitude,
+    required this.currentTemperature,
+    required this.minTemperature,
+    required this.maxTemperature,
+    required this.airPressure,
+    required this.humidity,
+    required this.windSpeed,
+    required this.weatherDescription,
+    required this.weatherIcon,
     required this.unitSystem,
   });
 
@@ -62,23 +60,19 @@ class DailyForecast extends Equatable {
   /// Requires [response] representing the data from the API and [unitSystem].
   factory DailyForecast.fromDailyForecastResponse(
       DailyForecastResponse response, String unitSystem) {
-    String icon = response.weatherDescriptions.isNotEmpty
-        ? response.weatherDescriptions[0].icon
-        : "";
+    String icon = response.iconCode;
     icon = "http://openweathermap.org/img/wn/$icon@2x.png";
     return DailyForecast(
       cityName: response.cityName,
-      latitude: response.coordinates.latitude,
-      longitude: response.coordinates.longitude,
-      currentTemperature: response.weather.currentTemperature,
-      minTemperature: response.weather.minTemperature,
-      maxTemperature: response.weather.maxTemperature,
-      airPressure: response.weather.pressure,
-      humidity: response.weather.humidity,
-      windSpeed: response.wind.speed,
-      weatherDescription: response.weatherDescriptions.isNotEmpty
-          ? response.weatherDescriptions[0].description
-          : "",
+      latitude: response.latitude,
+      longitude: response.longitude,
+      currentTemperature: response.currentTemperature,
+      minTemperature: response.minTemperature,
+      maxTemperature: response.maxTemperature,
+      airPressure: response.pressure,
+      humidity: response.humidity,
+      windSpeed: response.windSpeed,
+      weatherDescription: response.weatherDescription,
       weatherIcon: icon,
       unitSystem: unitSystem,
     );

@@ -16,81 +16,47 @@ class MultipleDaysForecastResponse {
 }
 
 class Forecast {
-  final Weather weather;
-  final List<WeatherDescription>? weatherDescriptions;
-  final Wind wind;
-  final String date;
-
-  Forecast({
-    required this.weather,
-    this.weatherDescriptions,
-    required this.wind,
-    required this.date,
-  });
-
-  factory Forecast.fromJson(Map<String, dynamic> map) {
-    return Forecast(
-      weather: Weather.fromJson(map['main']),
-      weatherDescriptions: (map['weather'] as List<dynamic>?)
-          ?.map((item) => WeatherDescription.fromJson(item))
-          ?.toList(),
-      wind: Wind.fromJson(map['wind']),
-      date: map['dt_txt'] ?? "",
-    );
-  }
-}
-
-class Weather {
   final double currentTemperature;
   final double minTemperature;
   final double maxTemperature;
   final int humidity;
   final int pressure;
+  double windSpeed;
+  String weatherDescription;
+  String iconCode;
+  final String date;
 
-  Weather({
+  Forecast({
     required this.currentTemperature,
     required this.minTemperature,
     required this.maxTemperature,
     required this.humidity,
     required this.pressure,
+    required this.weatherDescription,
+    required this.windSpeed,
+    required this.iconCode,
+    required this.date,
   });
 
-  factory Weather.fromJson(Map<String, dynamic> map) {
-    return Weather(
-      currentTemperature: (map['temp'] as num).toDouble(),
-      minTemperature: (map['temp_min'] as num).toDouble(),
-      maxTemperature: (map['temp_max'] as num).toDouble(),
-      humidity: map['humidity'] ?? 0,
-      pressure: map['pressure'] ?? 0,
-    );
-  }
-}
-
-class Wind {
-  final double speed;
-
-  Wind({required this.speed});
-
-  factory Wind.fromJson(Map<String, dynamic> map) {
-    return Wind(
-      speed: (map['speed'] as num).toDouble(),
-    );
-  }
-}
-
-class WeatherDescription {
-  final String description;
-  final String icon;
-
-  WeatherDescription({
-    required this.description,
-    required this.icon,
-  });
-
-  factory WeatherDescription.fromJson(Map<String, dynamic> map) {
-    return WeatherDescription(
-      description: map['main'] ?? "",
-      icon: map['icon'] ?? "",
+  factory Forecast.fromJson(Map<String, dynamic> map) {
+    return Forecast(
+      currentTemperature: (map['main']['temp'] as num).toDouble(),
+      minTemperature: (map['main']['temp_min'] as num).toDouble(),
+      maxTemperature: (map['main']['temp_max'] as num).toDouble(),
+      humidity: map['main']['humidity'] ?? 0,
+      pressure: map['main']['pressure'] ?? 0,
+      windSpeed: (map['wind']['speed'] as num).toDouble(),
+      weatherDescription: (map['weather'] as List<dynamic>?)
+              ?.map((item) => item['main'] ?? "")
+              .toList()[0] ??
+          "",
+      iconCode: (map['weather'] as List<dynamic>?)
+              ?.map(
+                (item) => item['icon'] ?? "",
+              )
+              .toList()[0] ??
+          "",
+      date: map['dt_txt'] ?? "",
     );
   }
 }

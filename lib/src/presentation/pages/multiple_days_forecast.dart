@@ -82,11 +82,11 @@ class _MultipleDaysForecastPageState extends State<MultipleDaysForecastPage> {
       ),
       ForecastPerDayWidget(
         forecast: forecasts[1],
-        dayLabel: _getDayOfWeek(forecasts[1].date!),
+        dayLabel: _getDayOfWeek(forecasts[1].date),
       ),
       ForecastPerDayWidget(
         forecast: forecasts[2],
-        dayLabel: _getDayOfWeek(forecasts[2].date!),
+        dayLabel: _getDayOfWeek(forecasts[2].date),
       ),
     ];
   }
