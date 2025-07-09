@@ -70,7 +70,7 @@ the [config](lib/config) directory.
 _Click on the image to play the video demo._
 
 <a href="https://www.youtube.com/watch?v=mEx6TKCwT9M">
-  <img src="https://github.com/kristinakoneva/breeze/assets/83497391/25c3c498-260d-4768-a631-ee9da794d738" alt="Demo" width=30% height=30% />
+  <img src="https://github.com/kristinakoneva/breeze/assets/83497391/25c3c498-260d-4768-a631-ee9da794d738" alt="Demo" width=30% />
 </a>
 
 ## Architecture
